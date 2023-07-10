@@ -1,5 +1,29 @@
 <script lang="ts">
-  import Greet from './lib/Greet.svelte'
+  import { Serialport } from 'tauri-plugin-serialport-api';
+
+  let serialport: Serialport | undefined = undefined;
+
+  function openSerialport() {
+    serialport = new Serialport({ path: 'COM10', baudRate: 9600 });
+    serialport
+      .open()
+      .then((res) => {
+        console.log('open serialport', res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  
+  function available_ports() {
+    Serialport.available_ports()
+      .then((res) => {
+        console.log('available_ports: ', res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 </script>
 
 <main class="container">
@@ -22,7 +46,7 @@
   </p>
 
   <div class="row">
-    <Greet />
+    <button on:click={available_ports}>Click me</button>
   </div>
 
 

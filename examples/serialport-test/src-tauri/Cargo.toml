@@ -16,7 +16,10 @@ tauri-build = { version = "1.4", features = [] }
 tauri = { version = "1.4", features = ["shell-open"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-tauri-plugin-serialport = { path = "../../../" }
+
+[dependencies.tauri-plugin-serialport]
+git = "https://github.com/lzhida/tauri-plugin-serialport"
+tag = "v0.1.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
