@@ -8,6 +8,8 @@ There are three general methods of installation that we can recommend.
 2. Pull sources directly from Github using git tags / revision hashes (most secure)
 3. Git submodule install this repo in your tauri project and then use file protocol to ingest the source (most secure, but inconvenient to use)
 
+### RUST
+
 Install the Core plugin by adding the following to your `Cargo.toml` file:
 
 `src-tauri/Cargo.toml`
@@ -35,29 +37,27 @@ fn main() {
 `Install from a tagged release`
 
 ```
-npm install github:lzhida/tauri-plugin-serialport#v0.1.0
+npm install github:deid84/tauri-plugin-serialport#v0.1.0
 # or
-yarn add github:lzhida/tauri-plugin-serialport#v0.1.0
+yarn add github:deid84/tauri-plugin-serialport#v0.1.0
 ```
 
 `Install from a branch (dev)`
 
 ```
-npm install https://github.com/lzhida/tauri-plugin-serialport\#master
+npm install https://github.com/deid84/tauri-plugin-serialport\#master
 # or
-yarn add https://github.com/lzhida/tauri-plugin-serialport\#master
+yarn add https://github.com/deid84/tauri-plugin-serialport\#master
 ```
 
 `package.json`
 
 ```json
   "dependencies": {
-    "tauri-plugin-serialport-api": "github:lzhida/tauri-plugin-serialport#v0.1.0",
+    "tauri-plugin-serialport-api": "github:deid84/tauri-plugin-serialport#v0.1.0",
   }
 ```
 
-Use within your JS/TS:
+`Use within your JS/TS:`
 
-```JS
-import { open } from 'tauri-plugin-serialport-api';
-```
+todo...
