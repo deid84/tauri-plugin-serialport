@@ -2,13 +2,25 @@
   import { Serialport } from 'tauri-plugin-serialport-api';
 
   let serialport: Serialport | undefined = undefined;
+  let name: string;
 
-  function openSerialport() {
-    serialport = new Serialport({ path: 'COM10', baudRate: 9600 });
+  function openPort() {
+    serialport = new Serialport({ portName: name, baudRate: 9600 });
     serialport
       .open()
       .then((res) => {
         console.log('open serialport', res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function closePort() {
+    serialport
+      .close()
+      .then((res) => {
+        console.log('close serialport', res);
       })
       .catch((err) => {
         console.error(err);
@@ -27,7 +39,7 @@
 </script>
 
 <main class="container">
-  <h1>Welcome to Tauri!</h1>
+  <h1>Welcome to Tauri Serial Port Plugin!</h1>
 
   <div class="row">
     <a href="https://vitejs.dev" target="_blank">
@@ -46,7 +58,13 @@
   </p>
 
   <div class="row">
-    <button on:click={available_ports}>Click me</button>
+    <button on:click={available_ports}>Scan Ports</button>
+  </div>
+
+  <div class="row">
+    <button on:click={openPort}>Connect</button>
+    <input type="text" placeholder="write your com port here..." bind:value={name} />
+    <button on:click={closePort}>Disconnect</button>
   </div>
 
 
