@@ -296,7 +296,7 @@ pub fn read<R: Runtime>(
                     });
                 }
                 Err(error) => {
-                    return Err(Err::String(format!("读取 {} 串口失败: {}", &port_name, error)));
+                    return Err(Err::String(format!("Reading from {} failed: {}", &port_name, error)));
                 }
             }
             Ok(())
