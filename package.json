@@ -1,6 +1,6 @@
 {
   "name": "tauri-plugin-serialport-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "deid84",
   "description": "",
   "browser": "webview-dist/index.js",
@@ -19,7 +19,7 @@
     "typescript": "4.7.3"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.4.0",
+    "@tauri-apps/api": "^1.5.0",
     "tslib": "^2.1.0"
   }
 }
