@@ -2,16 +2,16 @@ name: Audit
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   push:
     branches:
-      - main
+      - master
     paths:
       - "**/Cargo.lock"
       - "**/Cargo.toml"
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - "**/Cargo.lock"
       - "**/Cargo.toml"
