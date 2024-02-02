@@ -1,4 +1,4 @@
-import { UnlistenFn } from '@tauri-apps/api/event';
+import { UnlistenFn } from "@tauri-apps/api/event";
 export interface InvokeResult {
     code: number;
     message: string;
@@ -12,8 +12,8 @@ export interface SerialportOptions {
     baudRate: number;
     encoding?: string;
     dataBits?: 5 | 6 | 7 | 8;
-    flowControl?: null | 'Software' | 'Hardware';
-    parity?: null | 'Odd' | 'Even';
+    flowControl?: null | "Software" | "Hardware";
+    parity?: null | "Odd" | "Even";
     stopBits?: 1 | 2;
     timeout?: number;
     size?: number;
@@ -21,8 +21,8 @@ export interface SerialportOptions {
 }
 interface Options {
     dataBits: 5 | 6 | 7 | 8;
-    flowControl: null | 'Software' | 'Hardware';
-    parity: null | 'Odd' | 'Even';
+    flowControl: null | "Software" | "Hardware";
+    parity: null | "Odd" | "Even";
     stopBits: 1 | 2;
     timeout: number;
     [key: string]: any;

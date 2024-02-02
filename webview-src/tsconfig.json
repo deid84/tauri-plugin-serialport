@@ -3,6 +3,7 @@
     "target": "ES5",
     "strict": true,
     "allowJs": true,
+    "lib": ["ES2015", "DOM"],
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
@@ -12,5 +13,6 @@
     "declarationDir": "../webview-dist",
     "rootDir": "./"
   },
-  "include": ["./"]
+  "include": ["./"],
+  "exclude": ["rollup.config.js"]
 }
