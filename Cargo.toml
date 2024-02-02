@@ -3,7 +3,9 @@ name = "tauri-plugin-serialport"
 version = "1.0.0"
 authors = [ "47vigen" ]
 description = ""
-edition = "2024"
+license = ""
+repository = ""
+edition = "2021"
 exclude = ["/examples", "/webview-dist", "/webview-src", "node_modules"]
 
 [dependencies]
