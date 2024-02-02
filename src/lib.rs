@@ -1,10 +1,14 @@
 use tauri::{
-  plugin::{Builder, TauriPlugin}, Manager, Runtime,
+    plugin::{Builder, TauriPlugin},
+    Manager, Runtime,
 };
 
-use api::{*};
+use api::*;
 use state::SerialPortState;
-use std::{collections::HashMap, sync::{Mutex, Arc}};
+use std::{
+    collections::HashMap,
+    sync::{Arc, Mutex},
+};
 
 mod api;
 mod err;
@@ -12,23 +16,23 @@ mod state;
 
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
-  Builder::new("serialport")
-    .invoke_handler(tauri::generate_handler![
-      available_ports,
-      cancel_read,
-      close,
-      close_all,
-      force_close,
-      open,
-      read,
-      write,
-      write_binary,
-    ])
-    .setup(move |app| {
-      app.manage(SerialPortState {
-        serialports: Arc::new(Mutex::new(HashMap::new()))
-      });
-      Ok(())
-    })
-    .build()
+    Builder::new("serialport")
+        .invoke_handler(tauri::generate_handler![
+            available_ports,
+            cancel_read,
+            close,
+            close_all,
+            force_close,
+            open,
+            read,
+            write,
+            write_binary,
+        ])
+        .setup(move |app, _webview| {
+            app.manage(SerialPortState {
+                serialports: Arc::new(Mutex::new(HashMap::new())),
+            });
+            Ok(())
+        })
+        .build()
 }

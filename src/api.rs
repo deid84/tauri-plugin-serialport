@@ -5,7 +5,7 @@ use std::sync::mpsc;
 use std::sync::mpsc::{Receiver, Sender, TryRecvError};
 use std::thread;
 use std::time::Duration;
-use tauri::{command, AppHandle, Runtime, State, Window};
+use tauri::{command, AppHandle, Manager, Runtime, State, Window};
 
 fn get_serialport<T, F: FnOnce(&mut SerialPortInfo) -> Result<T, Err>>(
     state: State<'_, SerialPortState>,
@@ -15,11 +15,12 @@ fn get_serialport<T, F: FnOnce(&mut SerialPortInfo) -> Result<T, Err>>(
     match state.serialports.lock() {
         Ok(mut map) => match map.get_mut(&port_name) {
             Some(serialport_info) => f(serialport_info),
-            None => {
-                Err(Err::String("Serial Port not found!".to_string()))
-            }
+            None => Err(Err::String("Serial Port not found!".to_string())),
         },
-        Err(error) =>  Err(Err::String(format!("Failed to acquire file lock! {} ", error))),
+        Err(error) => Err(Err::String(format!(
+            "Failed to acquire file lock! {} ",
+            error
+        ))),
     }
 }
 
@@ -99,7 +100,10 @@ pub async fn cancel_read<R: Runtime>(
             Some(sender) => match sender.send(1) {
                 Ok(_) => {}
                 Err(error) => {
-                    return Err(Err::String(format!("Failed to cancel serial port reading data: {}", error)));
+                    return Err(Err::String(format!(
+                        "Failed to cancel serial port reading data: {}",
+                        error
+                    )));
                 }
             },
             None => {}
@@ -122,12 +126,13 @@ pub fn close<R: Runtime>(
             if serialports.remove(&port_name).is_some() {
                 Ok(())
             } else {
-                Err(Err::String(format!("Serial port {} not opened!", &port_name)))
+                Err(Err::String(format!(
+                    "Serial port {} not opened!",
+                    &port_name
+                )))
             }
         }
-        Err(error) => {
-            Err(Err::String(format!("Failed to acquire lock: {}", error)))
-        }
+        Err(error) => Err(Err::String(format!("Failed to acquire lock: {}", error))),
     }
 }
 
@@ -145,7 +150,10 @@ pub fn close_all<R: Runtime>(
                         Ok(_) => {}
                         Err(error) => {
                             println!("Failed to cancel serial port reading data: {}", error);
-                            return Err(Err::String(format!("Failed to cancel serial port reading data: {}", error)));
+                            return Err(Err::String(format!(
+                                "Failed to cancel serial port reading data: {}",
+                                error
+                            )));
                         }
                     }
                 }
@@ -153,9 +161,7 @@ pub fn close_all<R: Runtime>(
             map.clear();
             Ok(())
         }
-        Err(error) => {
-            Err(Err::String(format!("Failed to acquire lock: {}", error)))
-        }
+        Err(error) => Err(Err::String(format!("Failed to acquire lock: {}", error))),
     }
 }
 
@@ -174,7 +180,10 @@ pub fn force_close<R: Runtime>(
                         Ok(_) => {}
                         Err(error) => {
                             println!("Failed to cancel serial port reading data: {}", error);
-                            return Err(Err::String(format!("Failed to cancel serial port reading data: {}", error)));
+                            return Err(Err::String(format!(
+                                "Failed to cancel serial port reading data: {}",
+                                error
+                            )));
                         }
                     }
                 }
@@ -184,9 +193,7 @@ pub fn force_close<R: Runtime>(
                 Ok(())
             }
         }
-        Err(error) => {
-            Err(Err::String(format!("Failed to acquire lock: {}", error)))
-        }
+        Err(error) => Err(Err::String(format!("Failed to acquire lock: {}", error))),
     }
 }
 
@@ -206,7 +213,10 @@ pub fn open<R: Runtime>(
     match state.serialports.lock() {
         Ok(mut serialports) => {
             if serialports.contains_key(&port_name) {
-                return Err(Err::String(format!("Serial port {} not opened!", port_name)));
+                return Err(Err::String(format!(
+                    "Serial port {} not opened!",
+                    port_name
+                )));
             }
             match serialport::new(port_name.clone(), baud_rate)
                 .data_bits(get_data_bits(data_bits))
@@ -226,14 +236,11 @@ pub fn open<R: Runtime>(
                 }
                 Err(error) => Err(Err::String(format!(
                     "Access serial port {} failed: {}",
-                    port_name,
-                    error.description
+                    port_name, error.description
                 ))),
             }
         }
-        Err(error) => {
-            Err(Err::String(format!("Failed to acquire lock: {}", error)))
-        }
+        Err(error) => Err(Err::String(format!("Failed to acquire lock: {}", error))),
     }
 }
 
@@ -288,15 +295,16 @@ pub fn read<R: Runtime>(
                                     }
                                 }
                             }
-                            Err(_err) => {
-                                
-                            }
+                            Err(_err) => {}
                         }
                         thread::sleep(Duration::from_millis(timeout.unwrap_or(200)));
                     });
                 }
                 Err(error) => {
-                    return Err(Err::String(format!("Reading from {} failed: {}", &port_name, error)));
+                    return Err(Err::String(format!(
+                        "Reading from {} failed: {}",
+                        &port_name, error
+                    )));
                 }
             }
             Ok(())
@@ -312,19 +320,17 @@ pub fn write<R: Runtime>(
     port_name: String,
     value: String,
 ) -> Result<usize, Err> {
-    get_serialport(state, port_name.clone(), |serialport_info| {
-        match serialport_info.serialport.write(value.as_bytes()) {
-            Ok(size) => {
-                Ok(size)
-        }
-            Err(error) => {
-                Err(Err::String(format!(
-                    "Write to serial port: {} failed: {}",
-                    &port_name, error
-                )))
-            }
-        }
-    })
+    get_serialport(
+        state,
+        port_name.clone(),
+        |serialport_info| match serialport_info.serialport.write(value.as_bytes()) {
+            Ok(size) => Ok(size),
+            Err(error) => Err(Err::String(format!(
+                "Write to serial port: {} failed: {}",
+                &port_name, error
+            ))),
+        },
+    )
 }
 
 #[command]
@@ -335,18 +341,15 @@ pub fn write_binary<R: Runtime>(
     port_name: String,
     value: Vec<u8>,
 ) -> Result<usize, Err> {
-    get_serialport(state, port_name.clone(), |serialport_info| match serialport_info
-        .serialport
-        .write(&value)
-    {
-        Ok(size) => {
-            Ok(size)
-        }
-        Err(error) => {
-            Err(Err::String(format!(
+    get_serialport(
+        state,
+        port_name.clone(),
+        |serialport_info| match serialport_info.serialport.write(&value) {
+            Ok(size) => Ok(size),
+            Err(error) => Err(Err::String(format!(
                 "Write to serial port: {} failed: {}",
                 &port_name, error
-            )))
-        }
-    })
+            ))),
+        },
+    )
 }
