@@ -1,6 +1,8 @@
 # Tauri Plugin SerialPort
 A tauri plugin for managin serial port communication, created using serialport-rs crate.
 
+🚨 Migration to a Tauri v2-compliant version of the plugin has started. Due to the high number of breaking changes, you can find the new version in [this branch](https://github.com/deid84/tauri-plugin-serialport/tree/v2-migration). 🚨
+
 ## Installation
 There are three general methods of installation that we can recommend.
 
