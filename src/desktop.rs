@@ -1,22 +1,14 @@
+use std::{collections::HashMap, sync::{Arc, Mutex}};
+
 use serde::de::DeserializeOwned;
 use tauri::{plugin::PluginApi, AppHandle, Runtime};
 
-use crate::models::*;
-
-pub fn init<R: Runtime, C: DeserializeOwned>(
-  app: &AppHandle<R>,
-  _api: PluginApi<R, C>,
-) -> crate::Result<Serialport<R>> {
-  Ok(Serialport(app.clone()))
-}
+use crate::serialport::{SerialPortInfo};
 
 /// Access to the serialport APIs.
-pub struct Serialport<R: Runtime>(AppHandle<R>);
-
-impl<R: Runtime> Serialport<R> {
-  pub fn ping(&self, payload: PingRequest) -> crate::Result<PingResponse> {
-    Ok(PingResponse {
-      value: payload.value,
-    })
-  }
+pub struct SerialPort<R: Runtime> {
+    #[allow(dead_code)]
+    pub(crate) app: AppHandle<R>,
+    pub(crate) serialports: Arc<Mutex<HashMap<String, SerialPortInfo>>>,
 }
+
