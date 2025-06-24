@@ -3,9 +3,7 @@ use tauri::{
 };
 
 pub use models::*;
-pub mod messages;
-pub mod serial_types;
-pub mod state;
+pub mod serialport;
 
 #[cfg(desktop)]
 mod desktop;
