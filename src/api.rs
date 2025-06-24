@@ -1,4 +1,4 @@
-use crate::err::Err;
+use crate::error::Err;
 use crate::state::{ReadData, SerialPortInfo, SerialPortState};
 use serialport::{DataBits, FlowControl, Parity, StopBits};
 use std::sync::mpsc;

@@ -1,14 +1,20 @@
 [package]
 name = "tauri-plugin-serialport"
-version = "1.0.0"
+version = "2.0.0"
 authors = [ "deid84" ]
+license = "GPL-3.0-or-later"
 description = ""
 edition = "2021"
-rust-version = "1.60"
-exclude = ["/examples", "/webview-dist", "/webview-src", "node_modules"]
+rust-version = "1.70"
+exclude = ["/examples", "/dist-js", "/guest-js", "/node_modules"]
+links = "tauri-plugin-serialport"
+
 
 [dependencies]
-tauri = { version = "1.5.0" }
+tauri = { version = "2.5.0" }
 serde = "1.0"
-thiserror = "1.0"
-serialport = "4.3.0"
+thiserror = "2"
+serialport = "4.7.2"
+
+[build-dependencies]
+tauri-plugin = { version = "2.2.0", features = ["build"] }

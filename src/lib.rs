@@ -2,32 +2,49 @@ use tauri::{
   plugin::{Builder, TauriPlugin}, Manager, Runtime,
 };
 
-use api::{*};
-use state::SerialPortState;
-use std::{collections::HashMap, sync::{Mutex, Arc}};
+pub use models::*;
+pub mod messages;
+pub mod serial_types;
+pub mod state;
 
-mod api;
-mod err;
-mod state;
+#[cfg(desktop)]
+mod desktop;
+#[cfg(mobile)]
+mod mobile;
 
+mod commands;
+mod error;
+mod models;
+
+pub use error::{Error, Result};
+
+#[cfg(desktop)]
+use desktop::Serialport;
+#[cfg(mobile)]
+use mobile::Serialport;
+
+/// Extensions to [`tauri::App`], [`tauri::AppHandle`] and [`tauri::Window`] to access the serialport APIs.
+pub trait SerialportExt<R: Runtime> {
+  fn serialport(&self) -> &Serialport<R>;
+}
+
+impl<R: Runtime, T: Manager<R>> crate::SerialportExt<R> for T {
+  fn serialport(&self) -> &Serialport<R> {
+    self.state::<Serialport<R>>().inner()
+  }
+}
+
+/// Initializes the plugin.
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("serialport")
-    .invoke_handler(tauri::generate_handler![
-      available_ports,
-      cancel_read,
-      close,
-      close_all,
-      force_close,
-      open,
-      read,
-      write,
-      write_binary,
-    ])
-    .setup(move |app| {
-      app.manage(SerialPortState {
-        serialports: Arc::new(Mutex::new(HashMap::new()))
-      });
+    .invoke_handler(tauri::generate_handler![commands::ping])
+    .setup(|app, api| {
+      #[cfg(mobile)]
+      let serialport = mobile::init(app, api)?;
+      #[cfg(desktop)]
+      let serialport = desktop::init(app, api)?;
+      app.manage(serialport);
       Ok(())
     })
     .build()
