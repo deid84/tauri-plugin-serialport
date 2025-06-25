@@ -1,7 +1,7 @@
 mod msg;
-mod types;
 mod state;
+mod types;
 
 pub use msg::*;
-pub use types::*;
 pub use state::*;
+pub use types::*;
