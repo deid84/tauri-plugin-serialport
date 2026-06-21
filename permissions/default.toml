@@ -1,0 +1,35 @@
+"$schema" = "../permissions/schemas/schema.json"
+
+[[set]]
+identifier = "default"
+description = "Default permissions for the serialport plugin. Enables all serial port operations."
+permissions = [
+  "allow-available-ports",
+  "allow-open",
+  "allow-close",
+  "allow-close-all",
+  "allow-start-listening",
+  "allow-stop-listening",
+  "allow-cancel-read",
+  "allow-read",
+  "allow-read-binary",
+  "allow-write",
+  "allow-write-binary",
+  "allow-set-baud-rate",
+  "allow-set-data-bits",
+  "allow-set-flow-control",
+  "allow-set-parity",
+  "allow-set-stop-bits",
+  "allow-set-timeout",
+  "allow-write-request-to-send",
+  "allow-write-data-terminal-ready",
+  "allow-read-clear-to-send",
+  "allow-read-data-set-ready",
+  "allow-read-ring-indicator",
+  "allow-read-carrier-detect",
+  "allow-bytes-to-read",
+  "allow-bytes-to-write",
+  "allow-clear-buffer",
+  "allow-set-break",
+  "allow-clear-break",
+]
