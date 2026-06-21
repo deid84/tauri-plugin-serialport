@@ -4,10 +4,9 @@ use std::time::Duration;
 use crate::desktop::SerialPort;
 use crate::serialport::{ClearBuffer, DataBits, FlowControl, Parity, StopBits};
 use tauri::State;
-use tauri::{command, AppHandle, Runtime};
+use tauri::{AppHandle, Runtime};
 
 use crate::Error;
-use crate::SerialportExt;
 
 #[tauri::command]
 pub fn available_ports<R: Runtime>(

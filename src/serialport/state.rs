@@ -1,4 +1,3 @@
-use serde::Serialize;
 use serialport::{self, SerialPort};
 use std::{
     collections::HashMap,

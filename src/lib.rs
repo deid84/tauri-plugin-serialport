@@ -72,9 +72,9 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             set_break,
             clear_break,
         ])
-        .setup(|app, api| {
+        .setup(|app, _api| {
             #[cfg(mobile)]
-            let serialport = mobile::init(app, api)?;
+            let serialport = mobile::init(app, _api)?;
             #[cfg(desktop)]
             let serialport = SerialPort {
                 app: app.clone(),
