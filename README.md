@@ -2,7 +2,7 @@
 
 A Tauri v2 plugin for serial port communication, built on top of the [`serialport`](https://crates.io/crates/serialport) crate.
 
-> **Tauri v1 users:** the v1-compatible version is available on the [`master` branch](https://github.com/deid84/tauri-plugin-serialport/tree/master).
+> **Tauri v1 users:** the v1-compatible version is available on the [`v1` branch](https://github.com/deid84/tauri-plugin-serialport/tree/v1).
 
 ## Features
 
