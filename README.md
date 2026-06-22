@@ -1,5 +1,9 @@
 # tauri-plugin-serialport
 
+[![Crates.io](https://img.shields.io/crates/v/tauri-plugin-serialport)](https://crates.io/crates/tauri-plugin-serialport)
+[![npm](https://img.shields.io/npm/v/tauri-plugin-serialport-api)](https://www.npmjs.com/package/tauri-plugin-serialport-api)
+[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](#license)
+
 A Tauri v2 plugin for serial port communication, built on top of the [`serialport`](https://crates.io/crates/serialport) crate.
 
 > **Tauri v1 users:** the v1-compatible version is available on the [`v1` branch](https://github.com/deid84/tauri-plugin-serialport/tree/v1).
@@ -24,7 +28,7 @@ Add the plugin to `src-tauri/Cargo.toml`:
 
 ```toml
 [dependencies]
-tauri-plugin-serialport = { git = "https://github.com/deid84/tauri-plugin-serialport", branch = "v2-migration" }
+tauri-plugin-serialport = "2"
 ```
 
 Register it in `src-tauri/src/main.rs` (or `lib.rs`):
@@ -41,11 +45,11 @@ fn main() {
 ### JavaScript / TypeScript
 
 ```bash
-npm install github:deid84/tauri-plugin-serialport#v2-migration
+npm install tauri-plugin-serialport-api
 # or
-yarn add github:deid84/tauri-plugin-serialport#v2-migration
+yarn add tauri-plugin-serialport-api
 # or
-pnpm add github:deid84/tauri-plugin-serialport#v2-migration
+pnpm add tauri-plugin-serialport-api
 ```
 
 ### Permissions
@@ -189,4 +193,4 @@ The background reader thread emits Tauri events. Port path characters `.` and `/
 
 ## License
 
-GPL-3.0-or-later
+Licensed under either of [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE) at your option.
