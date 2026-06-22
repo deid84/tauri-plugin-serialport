@@ -1,8 +1,9 @@
 use serde::{Deserialize, Serialize};
 use serialport::{
     ClearBuffer as SerialClearBuffer, DataBits as SerialDataBits, FlowControl as SerialFlowControl,
-    Parity as SerialParity, StopBits as SerialStopBits,
+    Parity as SerialParity, SerialPort, StopBits as SerialStopBits,
 };
+use std::{sync::mpsc::Sender, thread::JoinHandle};
 
 /// Number of bits per character
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -148,3 +149,16 @@ impl From<ClearBuffer> for SerialClearBuffer {
         }
     }
 }
+
+#[derive(Serialize, Clone)]
+pub struct ReadData<'a> {
+    pub data: &'a [u8],
+    pub size: usize,
+}
+
+pub struct SerialPortInfo {
+    pub serialport: Box<dyn SerialPort>,
+    pub sender: Option<Sender<usize>>,
+    pub thread_handle: Option<JoinHandle<()>>,
+}
+
