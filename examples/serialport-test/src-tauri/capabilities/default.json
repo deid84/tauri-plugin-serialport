@@ -1,0 +1,9 @@
+{
+  "identifier": "default",
+  "description": "Default capability for the serialport-test app",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "serialport:default"
+  ]
+}
