@@ -2,8 +2,11 @@
 name = "tauri-plugin-serialport"
 version = "2.0.0"
 authors = [ "deid84" ]
-license = "GPL-3.0-or-later"
-description = ""
+license = "MIT OR Apache-2.0"
+description = "Tauri v2 plugin for serial port communication"
+repository = "https://github.com/deid84/tauri-plugin-serialport"
+keywords = ["tauri", "tauri-plugin", "serialport", "serial"]
+categories = ["hardware-support"]
 edition = "2021"
 rust-version = "1.70"
 exclude = ["/examples", "/dist-js", "/guest-js", "/node_modules"]

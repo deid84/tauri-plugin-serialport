@@ -1,9 +1,14 @@
 {
   "name": "tauri-plugin-serialport-api",
   "version": "2.0.0",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT OR Apache-2.0",
   "author": "deid84",
-  "description": "",
+  "description": "Tauri v2 plugin for serial port communication",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deid84/tauri-plugin-serialport"
+  },
+  "keywords": ["tauri", "tauri-plugin", "serialport", "serial"],
   "type": "module",
   "types": "./dist-js/index.d.ts",
   "main": "./dist-js/index.cjs",
@@ -16,14 +21,15 @@
   "files": [
     "dist-js",
     "README.md",
-    "LICENSE"
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
   ],
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "pnpm build",
     "pretest": "pnpm build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@tauri-apps/api": ">=2.0.0"
   },
   "devDependencies": {
