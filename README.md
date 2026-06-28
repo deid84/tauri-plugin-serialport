@@ -1,8 +1,13 @@
-# tauri-plugin-serialport
+<p align="center">
+  <img src="logo.png" alt="tauri-plugin-serialport" width="600" />
+</p>
 
-[![Crates.io](https://img.shields.io/crates/v/tauri-plugin-serialport)](https://crates.io/crates/tauri-plugin-serialport)
-[![npm](https://img.shields.io/npm/v/tauri-plugin-serialport-api)](https://www.npmjs.com/package/tauri-plugin-serialport-api)
-[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](#license)
+<p align="center">
+  <a href="https://crates.io/crates/tauri-plugin-serialport"><img src="https://img.shields.io/crates/v/tauri-plugin-serialport" alt="Crates.io" /></a>
+  <a href="https://www.npmjs.com/package/tauri-plugin-serialport-api"><img src="https://img.shields.io/npm/v/tauri-plugin-serialport-api" alt="npm" /></a>
+  <a href="#license"><img src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue" alt="License" /></a>
+  <a href="https://www.buymeacoffee.com/deid84"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee" /></a>
+</p>
 
 A Tauri v2 plugin for serial port communication, built on top of the [`serialport`](https://crates.io/crates/serialport) crate.
 
